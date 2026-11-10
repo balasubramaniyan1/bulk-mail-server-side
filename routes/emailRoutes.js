@@ -4,10 +4,12 @@ const router = express.Router();
 const nodemailer = require("nodemailer");
 const Email = require("../models/Email");
 const EmailPass = require("../models/EmailPass");
+const connectDB = require("../config/db");
 
 // Send bulk emails
 router.post("/send", async (req, res) => {
     try {
+        await connectDB();
         const { subject, body, recipients } = req.body;
 
         if (
@@ -140,6 +142,7 @@ router.post("/send", async (req, res) => {
 // Get email history
 router.get("/history", async (req, res) => {
     try {
+        await connectDB();
         const emails = await Email.find().sort({ sentAt: -1 });
 
         res.status(200).json(emails);
