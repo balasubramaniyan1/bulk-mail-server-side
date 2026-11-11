@@ -10,7 +10,7 @@ dotenv.config();
 const app = express();
 
 app.use(cors({
-    origin:  "http://localhost:5173",
+    origin:  process.env.VITE_API_URL || "http://localhost:5173",
 }));
 console.log("VITE_API_URL:", process.env.VITE_API_URL);
 
